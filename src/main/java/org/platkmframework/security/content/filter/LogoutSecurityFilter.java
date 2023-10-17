@@ -16,14 +16,16 @@
  * Contributors:
  * 	Eduardo Iglesias Taylor - initial API and implementation
  *******************************************************************************/
-package org.platkmframework.security.content;
+package org.platkmframework.security.content.filter;
 
 import java.io.IOException;
 import java.util.List;
 
-import javax.security.auth.login.LoginException;
- 
+import org.platkmframework.comon.service.exception.ServiceException;
 import org.platkmframework.content.ioc.ObjectContainer;
+import org.platkmframework.security.content.SessionConstants;
+import org.platkmframework.security.content.XSSRequestWrapper;
+import org.platkmframework.security.content.handler.LoginSecurityHandler;
 
 import jakarta.servlet.Filter;
 import jakarta.servlet.FilterChain;
@@ -31,6 +33,7 @@ import jakarta.servlet.FilterConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
+import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -40,7 +43,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *   Contributors: 
  *   	Eduardo Iglesias - initial API and implementation
  **/
-public class SecurityFilter implements Filter {
+@WebFilter(SessionConstants.C_LOGOUT_PATH)
+public class LogoutSecurityFilter implements Filter {
 	
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {}
@@ -54,28 +58,19 @@ public class SecurityFilter implements Filter {
 		
 		try {
 			
-            List<?> list = ObjectContainer.instance().getListObjectByInstance(BaseSecurityHandler.class);
+            List<?> list = ObjectContainer.instance().getListObjectByInstance(LoginSecurityHandler.class);
             if(list == null || list.isEmpty()) {
             	
             	chain.doFilter(req, resp);
             	
             }else {
-	            BaseSecurityHandler baseSecurityHandler = (BaseSecurityHandler) list.get(0);
-	            
-	            if(baseSecurityHandler.isLogingRequest(req)) {
-	            	baseSecurityHandler.login(req, resp);
-	            }else if(baseSecurityHandler.isLogoutRequest(req)) {
-	            	baseSecurityHandler.logout(req, resp);
-	            	throw new ServletException("User logout");
-	            }else {
-	            	baseSecurityHandler.authentication(null, null);
-	            	chain.doFilter(req, resp);
-	            }
+            	LoginSecurityHandler loginSecurityHandler = (LoginSecurityHandler) list.get(0);
+            	loginSecurityHandler.login(req, resp);
+	             
             }
-		}catch(LoginException e) {
+		}catch(ServiceException e) {
 			throw new ServletException(e);
-		} 
- 
+		}  
 	}
 	
 	

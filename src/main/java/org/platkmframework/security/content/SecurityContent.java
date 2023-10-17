@@ -32,12 +32,10 @@ public class SecurityContent {
 		return securityContent;
 	}
 	
-	
-	protected void setCurrentLoginContext(AuthenPrincipal authenPrincipal) {
+	public void setPrincipal(AuthenPrincipal authenPrincipal) {
 		secuirtyThreadLocal.set(authenPrincipal); 
 	}	
  
-	
 	public void clear() {
 		secuirtyThreadLocal.remove();
 	}

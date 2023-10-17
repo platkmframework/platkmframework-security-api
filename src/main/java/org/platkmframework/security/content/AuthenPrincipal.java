@@ -18,11 +18,11 @@
  *******************************************************************************/
 package org.platkmframework.security.content;
 
+import java.security.Principal;
 import java.util.List;
 
-public interface AuthenPrincipal {
+public interface AuthenPrincipal extends Principal {
 	
-	public String getName();
 	public List<String> credentials();
 
 }

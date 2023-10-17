@@ -16,13 +16,10 @@
  * Contributors:
  * 	Eduardo Iglesias Taylor - initial API and implementation
  *******************************************************************************/
-package org.platkmframework.security.content;
+package org.platkmframework.security.content.handler;
 
- 
-
-import java.security.Principal;
-
-import javax.security.auth.login.LoginException;
+import org.platkmframework.comon.service.exception.ServiceException;
+import org.platkmframework.security.content.XSSRequestWrapper;
 
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -33,15 +30,8 @@ import jakarta.servlet.http.HttpServletResponse;
  *   Contributors: 
  *   	Eduardo Iglesias - initial API and implementation
  **/
-public interface BaseSecurityHandler {
+public interface AuthenticationSecurityHandler {
 
-	public boolean isLogingRequest(XSSRequestWrapper req);
+	public void authentication(XSSRequestWrapper req, HttpServletResponse resp) throws ServiceException;
 	
-	public Principal login(XSSRequestWrapper req, HttpServletResponse resp) throws LoginException;
-	
-	public void authentication(XSSRequestWrapper req, HttpServletResponse resp) throws LoginException;
-	
-	public void logout(XSSRequestWrapper req, HttpServletResponse resp)throws LoginException;
-	
-	public boolean isLogoutRequest(XSSRequestWrapper req);
 }
