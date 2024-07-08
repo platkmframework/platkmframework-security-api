@@ -20,7 +20,7 @@ package org.platkmframework.security.content;
 
 public class SecurityContent {
 	
-	private ThreadLocal<AuthenPrincipal> secuirtyThreadLocal = new ThreadLocal<AuthenPrincipal>();
+	private ThreadLocal<AuthenPrincipal> secuirtyThreadLocal = new ThreadLocal<>();
 	
 	private static SecurityContent securityContent;
 	
@@ -32,12 +32,12 @@ public class SecurityContent {
 		return securityContent;
 	}
 	
-	public void setPrincipal(AuthenPrincipal authenPrincipal) {
+	public synchronized void setPrincipal(AuthenPrincipal authenPrincipal) {
 		secuirtyThreadLocal.set(authenPrincipal); 
 	}	
  
-	public void clear() {
-		secuirtyThreadLocal.remove();
+	public synchronized void clear() {
+		//secuirtyThreadLocal.remove();
 	}
 	
 	public AuthenPrincipal getPrincipal() {

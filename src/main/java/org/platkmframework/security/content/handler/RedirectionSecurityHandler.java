@@ -4,10 +4,9 @@ import org.platkmframework.security.content.XSSRequestWrapper;
 import org.platkmframework.security.exception.AuthSecurityException;
 
 import jakarta.servlet.http.HttpServletResponse;
- 
 
-public interface LoginSecurityHandler { 
+public interface RedirectionSecurityHandler { 
 	
-	public void login(XSSRequestWrapper req, HttpServletResponse resp) throws AuthSecurityException;
+	public void redirection(XSSRequestWrapper req, HttpServletResponse resp)throws AuthSecurityException;
 	
 }

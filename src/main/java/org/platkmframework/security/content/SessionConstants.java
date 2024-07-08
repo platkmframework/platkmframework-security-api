@@ -65,6 +65,8 @@ public interface SessionConstants
 	//logout resource path
 	public static final String C_LOGOUT_PATH = "/logout";
 	
+	public static final String C_REDIRECTION_PATH = "/redirection";
+	
 	//recover pass request resource path
 	public static final String C_RECOVER_PASSWORD_PATH = "/recover";
 	
