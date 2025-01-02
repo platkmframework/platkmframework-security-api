@@ -10,13 +10,13 @@ import jakarta.servlet.http.HttpServletResponse;
  *   Contributors:
  *   	Eduardo Iglesias - initial API and implementation
  */
-public interface RedirectionSecurityHandler {
+public interface SingUpSecurityHandler {
 
     /**
-     * redirection
+     * signUp
      * @param req req
      * @param resp resp
      * @throws AuthSecurityException AuthSecurityException
      */
-    public void redirection(XSSRequestWrapper req, HttpServletResponse resp) throws AuthSecurityException;
+    public void signUp(XSSRequestWrapper req, HttpServletResponse resp) throws AuthSecurityException;
 }
